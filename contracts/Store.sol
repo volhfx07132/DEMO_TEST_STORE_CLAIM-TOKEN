@@ -5,8 +5,8 @@ contract Store is ERC20{
 
     uint256 public FEE_USE_APP = 10000000000000000; // 0.01 ETH
     uint256 public VALUE_SWAP_TOKEN = 1000; // 1ETH = 1000 token
-    uint256 public SPACE_TIME_CLAIM = 0; // after 100 seconds ==> can claim token
-    uint256 public SPACE_TIME_REFUND = 0; // after 200 seconds ==> can refund token
+    uint256 public SPACE_TIME_CLAIM = 100; // after 100 seconds ==> can claim token
+    uint256 public SPACE_TIME_REFUND = 100; // after 200 seconds ==> can refund token
     address public ADMIN = 0x5bD4ECAa08dFA56423c0E83546e979e386003ccC;
 
     event deposit(address user, uint256 amount_in);
@@ -30,7 +30,7 @@ contract Store is ERC20{
     mapping(address => BuyerInfo) public listBuyerInfor;
 
     constructor() ERC20("TokenERC20 ", "TKE")  onlyAdmin{
-         _mint(ADMIN, 10000000000000000000000);
+         _mint(ADMIN, 1000000);
     }
 
     function depositETH(uint256 amount_in) external payable {
@@ -68,4 +68,5 @@ contract Store is ERC20{
     function getBuyerInformation() public view returns(BuyerInfo memory){
         return listBuyerInfor[msg.sender];
     }
+    /// update vesting period
 }

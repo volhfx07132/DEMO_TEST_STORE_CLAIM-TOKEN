@@ -133,6 +133,14 @@ contract VestingPeriod{
         }
     }
 
+    function adminApproveToken() public onlyAdmin{
+        uint256 totalTokenClaim;
+        if(!VESTING_INFO[msg.sender][i].STATUS){
+                totalTokenClaim += VESTING_INFO[msg.sender][i].UNLOCKRATE;
+        }
+        Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).approve(msg.sender, totalTokenClaim);
+    }
+
     function userBuyToken(uint256 amount_in) external payable {
         require(
             prePresaleStatus() == 1, 
@@ -170,7 +178,6 @@ contract VestingPeriod{
                 VESTING_INFO[msg.sender][i].STATUS = false;
             }
         }
-        Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).approve(msg.sender, totalTokenClaim);
         Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).transferFrom(
             PRESALE_INFO.PRESALE_OWNER, 
             msg.sender,

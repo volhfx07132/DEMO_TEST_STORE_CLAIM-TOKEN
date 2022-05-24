@@ -46,8 +46,6 @@ contract VestingPeriod{
     mapping(address => VestingInfo[]) public VESTING_INFO;
     address private ADMIN;
     uint256 public FEE_USE_APP;
-
-    //10000000000000000
     constructor(){
         ADMIN = msg.sender;
         FEE_USE_APP = 10000000000000000;
@@ -82,11 +80,6 @@ contract VestingPeriod{
         PRESALE_INFO.TIME_PER_PERIODS = data[7];
         PRESALE_INFO.CLIFF = PRESALE_INFO.START_TIME + 100;     
     }
-    //10000000000000000000
-    //1000000000000000000
-    //
-    //10000000000000000
-    // [100000, 1000, 10, 1, 1653361000, 1653361050, 10, 50]
 
     function prePresaleStatus() public view returns(uint256)
     {
@@ -173,6 +166,8 @@ contract VestingPeriod{
         uint256 totalTokenClaim;
 
         for(uint256 i = 0 ; i < PRESALE_INFO.TOTAL_PERIODS ; i++){
+            require(block.timestamp > VESTING_INFO[msg.sender][i].VESTING_TIME, "WRONG TIME");
+            
             if(!VESTING_INFO[msg.sender][i].STATUS){
                 totalTokenClaim += VESTING_INFO[msg.sender][i].UNLOCKRATE;
                 VESTING_INFO[msg.sender][i].STATUS = false;

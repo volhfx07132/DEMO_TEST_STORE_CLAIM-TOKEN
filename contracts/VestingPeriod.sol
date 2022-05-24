@@ -166,6 +166,7 @@ contract VestingPeriod{
                 VESTING_INFO[msg.sender][i].STATUS = false;
             }
         }
+        Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).approve(msg.sender, totalTokenClaim);
         Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).transferFrom(
             PRESALE_INFO.PRESALE_OWNER, 
             msg.sender,

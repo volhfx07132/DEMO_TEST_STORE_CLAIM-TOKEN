@@ -167,10 +167,10 @@ contract VestingPeriod{
 
         for(uint256 i = 0 ; i < PRESALE_INFO.TOTAL_PERIODS ; i++){
             require(block.timestamp > VESTING_INFO[msg.sender][i].VESTING_TIME, "WRONG TIME");
-            
+
             if(!VESTING_INFO[msg.sender][i].STATUS){
                 totalTokenClaim += VESTING_INFO[msg.sender][i].UNLOCKRATE;
-                VESTING_INFO[msg.sender][i].STATUS = false;
+                VESTING_INFO[msg.sender][i].STATUS = TRUE;
             }
         }
         Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).transferFrom(

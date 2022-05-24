@@ -112,6 +112,10 @@ contract VestingPeriod{
 
     function whileList(uint256 _amount) internal {
         require(
+            prePresaleStatus() == 0, 
+            "NOT ACTIVE"
+        );
+        require(
             !BUYER[msg.sender].statusBuyer,
             "BUYER EXITED!"
         );

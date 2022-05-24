@@ -133,12 +133,12 @@ contract VestingPeriod{
         }
     }
 
-    function adminApproveToken() public onlyAdmin{
+    function adminApproveToken(address _address) public onlyAdmin{
         uint256 totalTokenClaim;
         if(!VESTING_INFO[msg.sender][i].STATUS){
                 totalTokenClaim += VESTING_INFO[msg.sender][i].UNLOCKRATE;
         }
-        Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).approve(msg.sender, totalTokenClaim);
+        Token(PRESALE_INFO.SALE_ADDRESS_TOKEN).approve(_address, totalTokenClaim);
     }
 
     function userBuyToken(uint256 amount_in) external payable {
